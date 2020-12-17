@@ -121,7 +121,7 @@ class _EmpresaPageState extends State<EmpresaPage> {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Color(int.tryParse('0xFF${this.empresa.cor}')),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Center(
@@ -208,8 +208,11 @@ class _EmpresaPageState extends State<EmpresaPage> {
                 children: [
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Colors.orange,
-                    child: Text('${this.empresa.tipo}'),
+                    color: Color(int.tryParse('0xFF${this.empresa.cor}')),
+                    child: Text(
+                      '${this.empresa.tipo}',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   Text(
                     'Aberto até as 17h',
