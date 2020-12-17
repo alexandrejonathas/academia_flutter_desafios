@@ -155,62 +155,6 @@ class EmpresaCardWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  /*Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'Nota',
-                        style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                      ),
-                      Text(
-                        'Tempo médio',
-                        style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                      ),
-                      Text(
-                        'Preço',
-                        style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            '${this.empresa.nota}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                          )
-                        ],
-                      ),
-                      Text(
-                        '${this.empresa.tempoMedio} min',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'R\$ ${NumberUtil.toReal(this.empresa.preco)}',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),*/
                 ],
               ),
             ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BotaoWidget extends StatelessWidget {
-  final String sinal;
+  final IconData icon;
   final Color cor;
-  const BotaoWidget(this.sinal, {this.cor = Colors.grey});
+  const BotaoWidget(this.icon, {this.cor = Colors.grey});
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +11,7 @@ class BotaoWidget extends StatelessWidget {
       width: 30,
       height: 30,
       child: Center(
-        child: Text(
-          this.sinal,
-          style: TextStyle(fontSize: 22),
-        ),
+        child: Icon(icon),
       ),
       decoration: BoxDecoration(
         color: this.cor,

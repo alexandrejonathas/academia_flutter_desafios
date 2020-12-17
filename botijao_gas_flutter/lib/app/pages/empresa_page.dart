@@ -43,250 +43,279 @@ class _EmpresaPageState extends State<EmpresaPage> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+
+    var appBar = AppBar(
+      title: Text('Selecionar produtos'),
+      actions: [
+        IconButton(
+          onPressed: () => print('Clicou no botão ajuda'),
+          icon: Icon(
+            Icons.help,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+
+    var height = mediaQuery.size.height -
+        mediaQuery.padding.top -
+        appBar.preferredSize.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Selecionar produtos'),
-        actions: [
-          IconButton(
-            onPressed: () => print('Clicou no botão ajuda'),
-            icon: Icon(
-              Icons.help,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
+      appBar: appBar,
       backgroundColor: Colors.grey[100],
-      body: Column(
-        children: [
-          Container(
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  PassosWidget(
-                    'Comprar',
-                    active: true,
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  PassosWidget('Pagamento'),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                    ),
-                  ),
-                  PassosWidget('Confirmação')
-                ],
-              ),
+      body: Container(
+        width: mediaQuery.size.width,
+        height: height,
+        child: Column(
+          children: [
+            _title(),
+            SizedBox(
+              height: 3,
             ),
+            _subTitle(),
+            _detail1(),
+            Expanded(
+              child: SizedBox(),
+            ),
+            _botao(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _title() {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PassosWidget(
+              'Comprar',
+              active: true,
+            ),
+            _line(),
+            PassosWidget('Pagamento'),
+            _line(),
+            PassosWidget('Confirmação')
+          ],
+        ),
+      ),
+    );
+  }
+
+  _subTitle() {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(15),
+        child: Container(
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(2),
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Center(
+                  child: Text(
+                    '$quantidade',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  left: 10,
+                ),
+                child: Text(
+                  '${this.empresa.nome} - Botijão de 13kg',
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(right: 5),
+                  child: PrecoWidget(this.total),
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 3,
-          ),
-          Container(
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: Container(
-                child: Row(
+        ),
+      ),
+    );
+  }
+
+  _detail1() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      margin: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(
+                Icons.home,
+                size: 35,
+                color: Colors.grey,
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      width: 25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '$quantidade',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    Text(this.empresa.nome),
+                    SizedBox(
+                      height: 10,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 10,
-                      ),
-                      child: Text(
-                        '${this.empresa.nome} - Botijão de 13kg',
-                        style: TextStyle(
-                          fontSize: 12,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${this.empresa.nota}',
+                          style: TextStyle(fontSize: 12),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(right: 5),
-                        child: PrecoWidget(this.total),
-                      ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.orange,
+                        ),
+                        Text(
+                          '${this.empresa.tempoMedio} min',
+                          style: TextStyle(fontSize: 12),
+                        )
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    color: Colors.orange,
+                    child: Text('${this.empresa.tipo}'),
+                  ),
+                  Text(
+                    'Aberto até as 17h',
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                  )
+                ],
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
           ),
           Container(
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(8)),
-            child: Column(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 10),
-                                child: Icon(
-                                  Icons.home,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(this.empresa.nome),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text('${this.empresa.nota}'),
-                                          Icon(
-                                            Icons.star,
-                                            size: 12,
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(left: 30),
-                                            child: Text(
-                                              '${this.empresa.tempoMedio} min',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          this.empresa.tipo,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                        decoration: BoxDecoration(color: Colors.black),
-                      )
-                    ],
-                  ),
-                ),
-                Divider(
-                  color: Colors.grey,
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Botijão de gás 13kg',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          Text(this.empresa.nome),
-                          PrecoWidget(this.empresa.preco)
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              decrementarQuantidade();
-                            },
-                            child: BotaoWidget('-'),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            height: 50,
-                            child: Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Image.asset('assets/bojao.png'),
-                                Container(
-                                  margin: EdgeInsets.only(top: 8),
-                                  width: 15,
-                                  height: 25,
-                                  child: Center(
-                                    child: Text('$quantidade'),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange[700],
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              incrementarQuantidade();
-                            },
-                            child: BotaoWidget('+'),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 20),
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    'IR PARA O PAGAMENTO',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.blue[200],
-                        Colors.blue,
-                      ],
+                Column(
+                  children: [
+                    Text('Botijão de 13kg'),
+                    SizedBox(
+                      height: 5,
                     ),
-                  ),
+                    Text('${this.empresa.tipo}'),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    PrecoWidget(this.empresa.preco),
+                  ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        decrementarQuantidade();
+                      },
+                      child: BotaoWidget(Icons.remove),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      height: 50,
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Image.asset('assets/botijao.png'),
+                          Container(
+                            margin: EdgeInsets.only(top: 8),
+                            width: 15,
+                            height: 25,
+                            child: Center(
+                              child: Text('$quantidade'),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.orange[700],
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        incrementarQuantidade();
+                      },
+                      child: BotaoWidget(Icons.add),
+                    ),
+                  ],
+                )
               ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _botao() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      padding: EdgeInsets.all(20),
+      child: Text(
+        'IR PARA O PAGAMENTO',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        gradient: LinearGradient(
+          colors: [
+            Colors.blue[300],
+            Colors.blue[700],
+          ],
+        ),
+      ),
+    );
+  }
+
+  _line() {
+    return Expanded(
+      child: Column(
+        children: [
+          Divider(
+            color: Colors.grey,
+          ),
+          SizedBox(
+            height: 30,
           )
         ],
       ),

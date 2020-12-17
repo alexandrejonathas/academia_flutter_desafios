@@ -16,43 +16,35 @@ class _PassosWidgetState extends State<PassosWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: active ? Colors.grey[300] : Colors.transparent,
-                    borderRadius: BorderRadius.circular(50)),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: active ? Colors.blue : Colors.transparent,
-                    borderRadius: BorderRadius.circular(50),
-                    border: active
-                        ? Border.all(color: Colors.blue)
-                        : Border.all(color: Colors.grey[500]),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  this.passo,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 15),
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            color: active ? Colors.blue : Colors.white,
+            borderRadius: BorderRadius.circular(100),
+            border: !active ? Border.all(color: Colors.grey) : null,
+            boxShadow: active
+                ? [
+                    BoxShadow(
+                      blurRadius: 1,
+                      spreadRadius: 10,
+                      color: Colors.grey[300],
+                    )
+                  ]
+                : null,
+          ),
+        ),
+        Text(
+          this.passo,
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 12,
+          ),
+        )
+      ],
     );
   }
 }
