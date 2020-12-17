@@ -1,4 +1,5 @@
 import 'package:botijao_gas_flutter/app/models/empresa.dart';
+import 'package:botijao_gas_flutter/app/pages/widgets/melhor_preco_widget.dart';
 import 'package:botijao_gas_flutter/app/utils/number_util.dart';
 import 'package:flutter/material.dart';
 
@@ -48,42 +49,114 @@ class EmpresaCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(this.empresa.nome),
-                      empresa.melhorPreco
-                          ? Container()
-                          : Container(
-                              width: 100,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.yellow[800],
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(6),
-                                  bottomLeft: Radius.circular(6),
-                                ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(this.empresa.nome),
+                        empresa.melhorPreco ? MelhorPrecoWidget() : Container()
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Nota',
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 13,
                               ),
-                              child: Row(
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  '${this.empresa.nota}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                )
+                              ],
+                            )
+                          ],
+                        ), //Fim nota
+                        Column(
+                          children: [
+                            Text(
+                              'Tempo médio',
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 13,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            RichText(
+                              text: TextSpan(
                                 children: [
-                                  Icon(
-                                    Icons.label_important,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    'Melhor preço',
+                                  TextSpan(
+                                    text: '${this.empresa.tempoMedio}',
                                     style: TextStyle(
-                                        fontSize: 11, color: Colors.white),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
                                   ),
+                                  TextSpan(
+                                    text: ' min',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.grey,
+                                    ),
+                                  )
                                 ],
                               ),
                             )
-                    ],
+                          ],
+                        ), //Fim tempo médio
+                        Column(
+                          children: [
+                            Text(
+                              'Preço',
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 13,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'R\$ ${NumberUtil.toReal(this.empresa.preco)}',
+                                  style: TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ), //Fim preço
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Row(
+
+                  /*Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
@@ -110,7 +183,10 @@ class EmpresaCardWidget extends StatelessWidget {
                         children: [
                           Text(
                             '${this.empresa.nota}',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(
                             width: 5,
@@ -123,14 +199,18 @@ class EmpresaCardWidget extends StatelessWidget {
                       ),
                       Text(
                         '${this.empresa.tempoMedio} min',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         'R\$ ${NumberUtil.toReal(this.empresa.preco)}',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ],
-                  ),
+                  ),*/
                 ],
               ),
             ),

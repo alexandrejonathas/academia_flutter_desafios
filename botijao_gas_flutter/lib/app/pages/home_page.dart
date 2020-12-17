@@ -14,6 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<String> filtros = [
+    'Melhor avaliado',
+    'Mais rápido',
+    'Mais barato'
+  ];
+
   List<dynamic> empresas;
 
   @override
@@ -34,34 +40,61 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Escolha uma revenda'),
         actions: [
-          IconButton(
-            onPressed: () => print('Clicou no botão sync'),
+          PopupMenuButton(
             icon: Icon(
-              Icons.sync_sharp,
-              color: Colors.white,
+              Icons.swap_vert,
+              size: 30,
             ),
+            itemBuilder: (_) {
+              return this.filtros.map((f) {
+                return PopupMenuItem(
+                  value: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(f),
+                      Checkbox(onChanged: (bool value) {}, value: false)
+                    ],
+                  ),
+                );
+              }).toList();
+            },
           ),
-          IconButton(
-            onPressed: () => print('Clicou no botão ajuda'),
-            icon: Icon(
-              Icons.help,
-              color: Colors.white,
+          PopupMenuButton(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                '?',
+                style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
             ),
-          ),
+            itemBuilder: (_) {
+              return [
+                PopupMenuItem(
+                  child: Text(
+                    'Suporte',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: Text(
+                    'Termos de serviços',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                )
+              ];
+            },
+          )
         ],
       ),
-      body: LayoutBuilder(
-        builder: (_, constraints) {
-          return _body(constraints);
-        },
-      ),
+      body: _body(),
     );
   }
 
-  Widget _body(constraints) {
+  Widget _body() {
     return Column(
       children: [
-        _topo(constraints),
+        _topo(),
         Expanded(
           child: _lista(),
         ),
@@ -69,36 +102,34 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _topo(BoxConstraints constraints) {
-    var height = constraints.maxHeight * 0.15;
+  Widget _topo() {
     return Container(
-      padding: EdgeInsets.all(10),
-      width: constraints.maxWidth,
-      height: height,
+      padding: EdgeInsets.all(20),
       color: Colors.white,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Botijões de 13kg em:',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 11,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Botijões de 13kg em:',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 11,
+                  ),
                 ),
-              ),
-              Text('Av. Paulista, 1001'),
-              Text(
-                'Paulista, São Paulo, SP',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 13,
-                ),
-              )
-            ],
+                Text('Av. Paulista, 1001'),
+                Text(
+                  'Paulista, São Paulo, SP',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 13,
+                  ),
+                )
+              ],
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
